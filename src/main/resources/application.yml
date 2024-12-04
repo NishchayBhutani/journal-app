@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: Journal App
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: journaldb
+#      username: root
+#      password: root
+      auto-index-creation: true
