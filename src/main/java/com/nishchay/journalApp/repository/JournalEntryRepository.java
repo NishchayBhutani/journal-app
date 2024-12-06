@@ -1,8 +1,8 @@
 package com.nishchay.journalApp.repository;
 
 import com.nishchay.journalApp.entity.JournalEntry;
-import org.bson.types.ObjectId;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface JournalEntryRepository extends MongoRepository<JournalEntry, ObjectId> {
+
+public interface JournalEntryRepository extends JpaRepository<JournalEntry, Integer> {
 }

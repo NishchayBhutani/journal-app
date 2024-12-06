@@ -2,8 +2,6 @@ package com.nishchay.journalApp.controller;
 
 import com.nishchay.journalApp.entity.JournalEntry;
 import com.nishchay.journalApp.service.JournalEntryService;
-import org.apache.coyote.Response;
-import org.bson.types.ObjectId;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
@@ -40,7 +38,7 @@ public class JournalEntryController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<JournalEntry> findById(@PathVariable ObjectId id) {
+    public ResponseEntity<JournalEntry> findById(@PathVariable Integer id) {
         Optional<JournalEntry> journalEntryOptional = journalEntryService.findById(id);
         if(journalEntryOptional.isPresent()) {
             return new ResponseEntity<>(journalEntryOptional.get(), HttpStatus.OK);
@@ -49,19 +47,12 @@ public class JournalEntryController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<JournalEntry> update(@PathVariable ObjectId id, @RequestBody JournalEntry journalEntry) {
-        JournalEntry currEntry = journalEntryService.findById(id).orElse(null);
-        if(currEntry != null) {
-            currEntry.setTitle(StringUtils.isEmpty(journalEntry.getTitle()) ? currEntry.getTitle() : journalEntry.getTitle());
-            currEntry.setContent(StringUtils.isEmpty(journalEntry.getContent()) ? currEntry.getContent() : journalEntry.getContent());
-            journalEntryService.save(journalEntry);
-            return new ResponseEntity<>(currEntry, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    public ResponseEntity<JournalEntry> update(@PathVariable Integer id, @RequestBody JournalEntry journalEntry) {
+        return new ResponseEntity<>(journalEntryService.update(id, journalEntry), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable ObjectId id) {
+    public ResponseEntity<Void> delete(@PathVariable Integer id) {
         journalEntryService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

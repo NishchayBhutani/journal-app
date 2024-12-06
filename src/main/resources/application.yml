@@ -1,11 +1,11 @@
 spring:
   application:
     name: Journal App
-  data:
-    mongodb:
-      host: localhost
-      port: 27017
-      database: journaldb
-#      username: root
-#      password: root
-      auto-index-creation: true
+  datasource:
+    url: jdbc:postgresql://localhost:5432/journaldb
+    username: postgres
+    password: admin
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true

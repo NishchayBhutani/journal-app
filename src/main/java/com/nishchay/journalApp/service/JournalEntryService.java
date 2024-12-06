@@ -2,7 +2,6 @@ package com.nishchay.journalApp.service;
 
 import com.nishchay.journalApp.entity.JournalEntry;
 import com.nishchay.journalApp.repository.JournalEntryRepository;
-import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,15 +24,22 @@ public class JournalEntryService {
         return journalEntryRepository.findAll();
     }
 
-    public Optional<JournalEntry> findById(ObjectId id) {
+    public Optional<JournalEntry> findById(Integer id) {
         return journalEntryRepository.findById(id);
     }
 
-    public JournalEntry update(ObjectId id, JournalEntry journalEntry) {
-        return journalEntryRepository.save(journalEntry);
+    public JournalEntry update(Integer id, JournalEntry journalEntry) {
+        Optional<JournalEntry> journalEntryOptional = journalEntryRepository.findById(id);
+        if(journalEntryOptional.isPresent()) {
+            JournalEntry currEntry = journalEntryOptional.get();
+            currEntry.setTitle(journalEntry.getTitle());
+            currEntry.setContent(journalEntry.getContent());
+            return journalEntryRepository.save(currEntry);
+        }
+        return null;
     }
 
-    public void delete(ObjectId id) {
+    public void delete(Integer id) {
         journalEntryRepository.deleteById(id);
     }
 }

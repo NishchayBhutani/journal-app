@@ -1,21 +1,23 @@
 package com.nishchay.journalApp.entity;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.Data;
-import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
-import lombok.Setter;
-import org.bson.types.ObjectId;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Data
-@Document(collection = "journal_entries")
+@NoArgsConstructor
+@Entity
+@Table(name = "journal_entries")
 public class JournalEntry {
     @Id
-    private ObjectId id;
+    @GeneratedValue
+    private Long id;
     @NonNull
     private String title;
     private String content;
