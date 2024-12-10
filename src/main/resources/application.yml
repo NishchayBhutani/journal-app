@@ -15,3 +15,5 @@ spring:
     user:
       name: admin
       password: admin
+
+bcrypt-salt: 10
